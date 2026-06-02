@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Environment — never commit secrets
+.env
+.env.local
+.env.*.local
+
+# Logs & extracted evidence — never commit case data
+logs/
+storage/
+exports/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PHP dependencies
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Generated PDFs (build output)
+new docs/pdf/
+
+# Windows-bundled PHP binary (not source, 40MB+)
+php/

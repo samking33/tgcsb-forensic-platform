@@ -1,0 +1,273 @@
+/* Mobile Responsive Design Improvements */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+
+    /* Adjust sidebar for tablets */
+    .app-sidebar {
+        width: 220px;
+    }
+
+    .app-main {
+        margin-left: 220px;
+    }
+
+    /* Stack info boxes on tablets */
+    .info-box {
+        margin-bottom: 15px;
+    }
+
+    /* Smaller card padding */
+    .card-body {
+        padding: 1rem;
+    }
+
+    /* Reduce header size */
+    .appContent-header h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+
+    /* Hide sidebar by default on mobile */
+    .app-sidebar {
+        position: fixed;
+        left: -250px;
+        transition: left 0.3s ease;
+        z-index: 1050;
+    }
+
+    .app-sidebar.show {
+        left: 0;
+    }
+
+    /* Full width main content */
+    .app-main {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    /* Add mobile menu toggle button */
+    .mobile-menu-toggle {
+        display: block !important;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1040;
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Overlay when sidebar is open */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    /* Stack all info boxes */
+    .row>[class*='col-'] {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Smaller headers */
+    .app-content-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .app-content-header p {
+        font-size: 0.85rem;
+    }
+
+    /* Responsive tables */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Smaller buttons */
+    .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    /* Card adjustments */
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    /* Network graph on mobile */
+    #socialNetwork {
+        height: 300px !important;
+    }
+
+    /* Charts on mobile */
+    canvas {
+        max-height: 250px !important;
+    }
+
+    /* Timeline adjustments */
+    .timeline-event {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Badge sizing */
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+    }
+
+    /* Alert spacing */
+    .alert {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+
+    /* Even smaller headers */
+    .app-content-header h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Hide some verbose text */
+    .d-none-xs {
+        display: none !important;
+    }
+
+    /* Compact tables */
+    .table td,
+    .table th {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* Stack buttons vertically */
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Info boxes - smaller */
+    .info-box-icon {
+        width: 60px;
+        font-size: 1.5rem;
+    }
+
+    .info-box-number {
+        font-size: 1.2rem;
+    }
+
+    /* Reduce padding everywhere */
+    .container,
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* Landscape Mode Adjustments */
+@media (max-width: 896px) and (orientation: landscape) {
+
+    /* Reduce vertical padding in landscape */
+    .app-content {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .card {
+        margin-bottom: 0.75rem;
+    }
+}
+
+/* Touch-friendly Improvements */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger tap targets for touch devices */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    a,
+    button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Larger form inputs */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+        min-height: 44px;
+    }
+}
+
+/* Print Styles */
+@media print {
+
+    /* Hide sidebar and non-essential elements */
+    .app-sidebar,
+    .btn,
+    .app-header,
+    .mobile-menu-toggle,
+    .card-tools {
+        display: none !important;
+    }
+
+    /* Full width for content */
+    .app-main {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Remove shadows and backgrounds */
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+
+    /* Ensure tables print properly */
+    .table-responsive {
+        overflow: visible !important;
+    }
+
+    /* Page breaks */
+    .card {
+        page-break-inside: avoid;
+    }
+}

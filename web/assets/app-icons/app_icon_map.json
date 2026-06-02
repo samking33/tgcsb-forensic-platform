@@ -1,0 +1,218 @@
+{
+    "version": "1.0.0",
+    "description": "Forensic-safe app icon mapping for Android packages",
+    "last_updated": "2026-01-12",
+    "icon_base_path": "assets/app-icons/known/",
+    "mappings": {
+        "com.whatsapp": {
+            "name": "WhatsApp",
+            "icon": "whatsapp.png",
+            "color": "#25D366"
+        },
+        "com.whatsapp.w4b": {
+            "name": "WhatsApp Business",
+            "icon": "whatsapp_business.png",
+            "color": "#25D366"
+        },
+        "com.instagram.android": {
+            "name": "Instagram",
+            "icon": "instagram.png",
+            "color": "#E4405F"
+        },
+        "com.facebook.katana": {
+            "name": "Facebook",
+            "icon": "facebook.png",
+            "color": "#1877F2"
+        },
+        "com.facebook.orca": {
+            "name": "Messenger",
+            "icon": "messenger.png",
+            "color": "#0084FF"
+        },
+        "com.twitter.android": {
+            "name": "X (Twitter)",
+            "icon": "twitter.png",
+            "color": "#000000"
+        },
+        "com.snapchat.android": {
+            "name": "Snapchat",
+            "icon": "snapchat.png",
+            "color": "#FFFC00"
+        },
+        "com.google.android.apps.messaging": {
+            "name": "Messages",
+            "icon": "messages.png",
+            "color": "#4285F4"
+        },
+        "com.google.android.gm": {
+            "name": "Gmail",
+            "icon": "gmail.png",
+            "color": "#EA4335"
+        },
+        "com.google.android.youtube": {
+            "name": "YouTube",
+            "icon": "youtube.png",
+            "color": "#FF0000"
+        },
+        "com.android.chrome": {
+            "name": "Chrome",
+            "icon": "chrome.png",
+            "color": "#4285F4"
+        },
+        "com.brave.browser": {
+            "name": "Brave Browser",
+            "icon": "brave.png",
+            "color": "#FB542B"
+        },
+        "org.mozilla.firefox": {
+            "name": "Firefox",
+            "icon": "firefox.png",
+            "color": "#FF7139"
+        },
+        "com.opera.browser": {
+            "name": "Opera",
+            "icon": "opera.png",
+            "color": "#FF1B2D"
+        },
+        "com.spotify.music": {
+            "name": "Spotify",
+            "icon": "spotify.png",
+            "color": "#1DB954"
+        },
+        "com.netflix.mediaclient": {
+            "name": "Netflix",
+            "icon": "netflix.png",
+            "color": "#E50914"
+        },
+        "com.amazon.mShop.android.shopping": {
+            "name": "Amazon",
+            "icon": "amazon.png",
+            "color": "#FF9900"
+        },
+        "com.zhiliaoapp.musically": {
+            "name": "TikTok",
+            "icon": "tiktok.png",
+            "color": "#000000"
+        },
+        "com.linkedin.android": {
+            "name": "LinkedIn",
+            "icon": "linkedin.png",
+            "color": "#0A66C2"
+        },
+        "com.reddit.frontpage": {
+            "name": "Reddit",
+            "icon": "reddit.png",
+            "color": "#FF4500"
+        },
+        "com.discord": {
+            "name": "Discord",
+            "icon": "discord.png",
+            "color": "#5865F2"
+        },
+        "com.telegram.messenger": {
+            "name": "Telegram",
+            "icon": "telegram.png",
+            "color": "#26A5E4"
+        },
+        "org.telegram.messenger": {
+            "name": "Telegram",
+            "icon": "telegram.png",
+            "color": "#26A5E4"
+        },
+        "com.viber.voip": {
+            "name": "Viber",
+            "icon": "viber.png",
+            "color": "#665CAC"
+        },
+        "com.skype.raider": {
+            "name": "Skype",
+            "icon": "skype.png",
+            "color": "#00AFF0"
+        },
+        "us.zoom.videomeetings": {
+            "name": "Zoom",
+            "icon": "zoom.png",
+            "color": "#2D8CFF"
+        },
+        "com.google.android.apps.photos": {
+            "name": "Google Photos",
+            "icon": "photos.png",
+            "color": "#4285F4"
+        },
+        "com.google.android.apps.maps": {
+            "name": "Google Maps",
+            "icon": "maps.png",
+            "color": "#4285F4"
+        },
+        "com.google.android.calendar": {
+            "name": "Calendar",
+            "icon": "calendar.png",
+            "color": "#4285F4"
+        },
+        "com.google.android.apps.docs": {
+            "name": "Google Docs",
+            "icon": "docs.png",
+            "color": "#4285F4"
+        },
+        "com.dropbox.android": {
+            "name": "Dropbox",
+            "icon": "dropbox.png",
+            "color": "#0061FF"
+        },
+        "com.microsoft.office.outlook": {
+            "name": "Outlook",
+            "icon": "outlook.png",
+            "color": "#0078D4"
+        },
+        "com.microsoft.teams": {
+            "name": "Microsoft Teams",
+            "icon": "teams.png",
+            "color": "#6264A7"
+        },
+        "com.tencent.mm": {
+            "name": "WeChat",
+            "icon": "wechat.png",
+            "color": "#09B83E"
+        },
+        "jp.naver.line.android": {
+            "name": "LINE",
+            "icon": "line.png",
+            "color": "#00B900"
+        },
+        "com.ubercab": {
+            "name": "Uber",
+            "icon": "uber.png",
+            "color": "#000000"
+        },
+        "com.paypal.android.p2pmobile": {
+            "name": "PayPal",
+            "icon": "paypal.png",
+            "color": "#00457C"
+        },
+        "com.google.android.apps.tachyon": {
+            "name": "Google Meet",
+            "icon": "meet.png",
+            "color": "#00897B"
+        },
+        "com.miui.securitycenter": {
+            "name": "Security Center",
+            "icon": "security.png",
+            "color": "#FF6900"
+        },
+        "com.android.settings": {
+            "name": "Settings",
+            "icon": "settings.png",
+            "color": "#757575"
+        },
+        "com.android.vending": {
+            "name": "Play Store",
+            "icon": "playstore.png",
+            "color": "#01875F"
+        },
+        "com.google.android.googlequicksearchbox": {
+            "name": "Google",
+            "icon": "google.png",
+            "color": "#4285F4"
+        }
+    }
+}

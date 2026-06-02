@@ -1,0 +1,261 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-12",
+  "devices": [
+    {
+      "id": "xiaomi_22101320i",
+      "manufacturer": "xiaomi",
+      "model": "22101320I",
+      "marketName": "POCO X5 Pro 5G",
+      "image": "poco-x5-pro-5g.png",
+      "year": 2023,
+      "aliases": [
+        "22101320G",
+        "22101320C"
+      ]
+    },
+    {
+      "id": "samsung_sm-g998b",
+      "manufacturer": "samsung",
+      "model": "SM-G998B",
+      "marketName": "Galaxy S21 Ultra",
+      "image": "samsung-s21-ultra.png",
+      "year": 2021,
+      "aliases": [
+        "SM-G998U",
+        "SM-G998N",
+        "SM-G9980"
+      ]
+    },
+    {
+      "id": "samsung_sm-g991b",
+      "manufacturer": "samsung",
+      "model": "SM-G991B",
+      "marketName": "Galaxy S21",
+      "image": "samsung-s21.png",
+      "year": 2021,
+      "aliases": [
+        "SM-G991U",
+        "SM-G991N"
+      ]
+    },
+    {
+      "id": "samsung_sm-n986b",
+      "manufacturer": "samsung",
+      "model": "SM-N986B",
+      "marketName": "Galaxy Note 20 Ultra",
+      "image": "samsung-note20-ultra.png",
+      "year": 2020,
+      "aliases": [
+        "SM-N986U",
+        "SM-N986N"
+      ]
+    },
+    {
+      "id": "samsung_sm-g973f",
+      "manufacturer": "samsung",
+      "model": "SM-G973F",
+      "marketName": "Galaxy S10",
+      "image": "samsung-s10.png",
+      "year": 2019,
+      "aliases": [
+        "SM-G973U",
+        "SM-G973N"
+      ]
+    },
+    {
+      "id": "google_gp7p",
+      "manufacturer": "google",
+      "model": "GP7P",
+      "marketName": "Pixel 7 Pro",
+      "image": "pixel-7-pro.png",
+      "year": 2022,
+      "aliases": [
+        "Pixel 7 Pro",
+        "cheetah"
+      ]
+    },
+    {
+      "id": "google_gp7",
+      "manufacturer": "google",
+      "model": "GP7",
+      "marketName": "Pixel 7",
+      "image": "pixel-7.png",
+      "year": 2022,
+      "aliases": [
+        "Pixel 7",
+        "panther"
+      ]
+    },
+    {
+      "id": "google_gp6p",
+      "manufacturer": "google",
+      "model": "GP6P",
+      "marketName": "Pixel 6 Pro",
+      "image": "pixel-6-pro.png",
+      "year": 2021,
+      "aliases": [
+        "Pixel 6 Pro",
+        "raven"
+      ]
+    },
+    {
+      "id": "google_gp6",
+      "manufacturer": "google",
+      "model": "GP6",
+      "marketName": "Pixel 6",
+      "image": "pixel-6.png",
+      "year": 2021,
+      "aliases": [
+        "Pixel 6",
+        "oriole"
+      ]
+    },
+    {
+      "id": "oneplus_le2123",
+      "manufacturer": "oneplus",
+      "model": "LE2123",
+      "marketName": "OnePlus 9 Pro",
+      "image": "oneplus-9-pro.png",
+      "year": 2021,
+      "aliases": [
+        "LE2121",
+        "LE2125"
+      ]
+    },
+    {
+      "id": "oneplus_le2113",
+      "manufacturer": "oneplus",
+      "model": "LE2113",
+      "marketName": "OnePlus 9",
+      "image": "oneplus-9.png",
+      "year": 2021,
+      "aliases": [
+        "LE2111",
+        "LE2115"
+      ]
+    },
+    {
+      "id": "xiaomi_m2102k1g",
+      "manufacturer": "xiaomi",
+      "model": "M2102K1G",
+      "marketName": "Mi 11",
+      "image": "xiaomi-mi11.png",
+      "year": 2021,
+      "aliases": [
+        "M2102K1AC",
+        "M2102K1C"
+      ]
+    },
+    {
+      "id": "xiaomi_21061119dg",
+      "manufacturer": "xiaomi",
+      "model": "21061119DG",
+      "marketName": "Mi 11 Ultra",
+      "image": "xiaomi-mi11-ultra.png",
+      "year": 2021,
+      "aliases": [
+        "21061119AG"
+      ]
+    },
+    {
+      "id": "xiaomi_2201123g",
+      "manufacturer": "xiaomi",
+      "model": "2201123G",
+      "marketName": "Xiaomi 12",
+      "image": "xiaomi-12.png",
+      "year": 2022,
+      "aliases": [
+        "2201123C"
+      ]
+    },
+    {
+      "id": "xiaomi_m2007j3sg",
+      "manufacturer": "xiaomi",
+      "model": "M2007J3SG",
+      "marketName": "Poco X3 NFC",
+      "image": "poco-x3.png",
+      "year": 2020,
+      "aliases": [
+        "M2007J3SI"
+      ]
+    },
+    {
+      "id": "oppo_cph2399",
+      "manufacturer": "oppo",
+      "model": "CPH2399",
+      "marketName": "Find X5 Pro",
+      "image": "oppo-find-x5-pro.png",
+      "year": 2022,
+      "aliases": []
+    },
+    {
+      "id": "oppo_cph2247",
+      "manufacturer": "oppo",
+      "model": "CPH2247",
+      "marketName": "Reno 6 Pro",
+      "image": "oppo-reno6-pro.png",
+      "year": 2021,
+      "aliases": []
+    },
+    {
+      "id": "sony_xq-ct54",
+      "manufacturer": "sony",
+      "model": "XQ-CT54",
+      "marketName": "Xperia 1 IV",
+      "image": "sony-xperia-1-iv.png",
+      "year": 2022,
+      "aliases": [
+        "XQ-CT44",
+        "XQ-CT72"
+      ]
+    },
+    {
+      "id": "sony_xq-bc72",
+      "manufacturer": "sony",
+      "model": "XQ-BC72",
+      "marketName": "Xperia 5 III",
+      "image": "sony-xperia-5-iii.png",
+      "year": 2021,
+      "aliases": [
+        "XQ-BQ72"
+      ]
+    },
+    {
+      "id": "motorola_xt2163-4",
+      "manufacturer": "motorola",
+      "model": "XT2163-4",
+      "marketName": "Moto G Power (2022)",
+      "image": "moto-g-power-2022.png",
+      "year": 2022,
+      "aliases": []
+    },
+    {
+      "id": "motorola_xt2125-4",
+      "manufacturer": "motorola",
+      "model": "XT2125-4",
+      "marketName": "Moto G 5G",
+      "image": "moto-g-5g.png",
+      "year": 2020,
+      "aliases": []
+    }
+  ],
+  "aliases": {
+    "22101320i": "xiaomi_22101320i",
+    "22101320g": "xiaomi_22101320i",
+    "22101320c": "xiaomi_22101320i",
+    "sm-g998u": "samsung_sm-g998b",
+    "sm-g998n": "samsung_sm-g998b",
+    "sm-g9980": "samsung_sm-g998b",
+    "sm-g991u": "samsung_sm-g991b",
+    "sm-g991n": "samsung_sm-g991b",
+    "pixel 7 pro": "google_gp7p",
+    "cheetah": "google_gp7p",
+    "pixel 7": "google_gp7",
+    "panther": "google_gp7",
+    "pixel 6 pro": "google_gp6p",
+    "raven": "google_gp6p",
+    "pixel 6": "google_gp6",
+    "oriole": "google_gp6"
+  }
+}

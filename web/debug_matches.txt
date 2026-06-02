@@ -1,0 +1,8 @@
+--- NEW REQUEST ---
+2026-01-23 15:47:26
+Params: {"logType":"all","timeRange":"24h","severity":"all","category":"network","keyword":"","regex":"","caseSensitive":false,"dateFrom":"","dateTo":""}
+Scanning file: android_logcat (26549 lines)
+Scanning file: call_logs (158 lines)
+Scanning file: location_logs (199 lines)
+Scanning file: sms_logs (6646 lines)
+Total Matches: 613

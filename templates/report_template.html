@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Android Forensic Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #111;
+      margin: 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 6px;
+      margin-top: 28px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      margin-top: 6px;
+      color: #444;
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      min-width: 180px;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f7f7f7;
+    }
+
+    ul {
+      margin: 6px 0 0 18px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #0b7dda;
+      color: white;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .muted {
+      color: #666;
+    }
+
+    .sample {
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      padding: 8px;
+      margin: 4px 0;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Android Forensic Analysis Report</h1>
+    <div class="meta">Generated: {{ generated_at }} | Case: {{ case_number }} | Examiner: {{ examiner }}</div>
+  </header>
+
+  <div class="section">
+    <h2>Chain of Custody</h2>
+    <ul>
+      {% for step in chain_of_custody %}
+      <li>{{ step }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Methodology</h2>
+    <ul>
+      {% for step in methodology %}
+      <li>{{ step }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Device Information</h2>
+    <div class="stats">
+      <div class="card"><strong>Model</strong><br>{{ device.model }}</div>
+      <div class="card"><strong>Android</strong><br>{{ device.android_version }}</div>
+      <div class="card"><strong>Kernel</strong><br>{{ device.kernel }}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Call Log Analysis</h2>
+    <div class="stats">
+      <div class="card"><strong>Total Calls</strong><br>{{ calls.total }}</div>
+      <div class="card"><strong>Incoming</strong><br>{{ calls.incoming }}</div>
+      <div class="card"><strong>Outgoing</strong><br>{{ calls.outgoing }}</div>
+      <div class="card"><strong>Missed</strong><br>{{ calls.missed }}</div>
+    </div>
+    {% if calls.top_callers %}
+    <h3>Top Callers</h3>
+    <table>
+      <tr>
+        <th>Number</th>
+        <th>Contact Name</th>
+        <th>Count</th>
+      </tr>
+      {% for number, count, name in calls.top_callers %}
+      <tr>
+        <td>{{ number }}</td>
+        <td>{{ name }}</td>
+        <td>{{ count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p class="muted">No caller frequency data available.</p>
+    {% endif %}
+  </div>
+
+  <div class="section">
+    <h2>SMS Analysis</h2>
+    <div class="stats">
+      <div class="card"><strong>Total Messages</strong><br>{{ sms.total }}</div>
+      <div class="card"><strong>Incoming</strong><br>{{ sms.incoming }}</div>
+      <div class="card"><strong>Outgoing</strong><br>{{ sms.outgoing }}</div>
+    </div>
+    {% if sms.top_senders %}
+    <h3>Top SMS Contacts</h3>
+    <table>
+      <tr>
+        <th>Number</th>
+        <th>Contact Name</th>
+        <th>Count</th>
+      </tr>
+      {% for number, count, name in sms.top_senders %}
+      <tr>
+        <td>{{ number }}</td>
+        <td>{{ name }}</td>
+        <td>{{ count }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p class="muted">No sender frequency data available.</p>
+    {% endif %}
+  </div>
+
+  <div class="section">
+    <h2>Logcat Summary</h2>
+    <div class="stats">
+      <div class="card"><strong>Total Entries</strong><br>{{ logcat.total }}</div>
+      <div class="card"><strong>Recent Sample</strong><br><span class="badge">{{ logcat.recent_label }}</span></div>
+    </div>
+    {% if logcat.recent_sample %}
+    <h3>Recent Log Entries</h3>
+    {% for line in logcat.recent_sample %}
+    <div class="sample">{{ line }}</div>
+    {% endfor %}
+    {% else %}
+    <p class="muted">No logcat data available.</p>
+    {% endif %}
+  </div>
+
+  <div class="section">
+    <h2>📜 Section 65B Certificate</h2>
+    <p style="font-size: 11px; color: #666; margin-bottom: 16px;">
+      <strong>Indian Evidence Act, 1872 - Certificate of Authenticity for Electronic Evidence</strong><br>
+      This certificate is required for admissibility of electronic records in Indian courts as per Section 65B.
+    </p>
+
+    <h3>Device Information</h3>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      {% set dev_info = section_65b.device_identifiers if section_65b.device_identifiers is defined else
+      section_65b.device_info %}
+      <tr>
+        <td>Device Model</td>
+        <td>{{ dev_info.model }}</td>
+      </tr>
+      <tr>
+        <td>Android Version</td>
+        <td>{{ dev_info.android_version }}</td>
+      </tr>
+      {% if dev_info.kernel is defined %}
+      <tr>
+        <td>Kernel Version</td>
+        <td>{{ dev_info.kernel }}</td>
+      </tr>
+      {% endif %}
+      {% if dev_info.imei is defined %}
+      <tr>
+        <td>IMEI</td>
+        <td>{{ dev_info.imei }}</td>
+      </tr>
+      {% endif %}
+      {% if dev_info.serial_number is defined %}
+      <tr>
+        <td>Serial Number</td>
+        <td>{{ dev_info.serial_number }}</td>
+      </tr>
+      {% endif %}
+      {% if dev_info.manufacturer is defined %}
+      <tr>
+        <td>Manufacturer</td>
+        <td>{{ dev_info.manufacturer }}</td>
+      </tr>
+      {% endif %}
+    </table>
+
+    <h3>Acquisition Details</h3>
+    <table>
+      </tr>
+      <tr>
+        <td>Acquisition Date</td>
+        <td>{{ section_65b.acquisition_date }}</td>
+      </tr>
+      <tr>
+        <td>Acquisition Time</td>
+        <td>{{ section_65b.acquisition_time_only }}</td>
+      </tr>
+      <tr>
+        <td>Full Timestamp</td>
+        <td>{{ section_65b.acquisition_time }}</td>
+      </tr>
+      <tr>
+        <td>Forensic Examiner</td>
+        <td>{{ section_65b.examiner }}</td>
+      </tr>
+      <tr>
+        <td>Case Number</td>
+        <td>{{ section_65b.case_number }}</td>
+      </tr>
+      <tr>
+        <td>Total Evidence Files</td>
+        <td>{{ section_65b.total_evidence_files }}</td>
+      </tr>
+    </table>
+
+    <h3>Evidence File Integrity (SHA-256 Hashes)</h3>
+    <table>
+      <tr>
+        <th>Filename</th>
+        <th>Size</th>
+        <th>SHA-256 Hash</th>
+      </tr>
+      {% for file in section_65b.evidence_hashes %}
+      <tr>
+        <td><strong>{{ file.filename }}</strong></td>
+        <td>{{ file.size_human }}</td>
+        <td style="font-family: 'Courier New', monospace; font-size: 9px; word-break: break-all;">{{ file.hash }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <div style="margin-top: 20px; padding: 12px; background: #fffbf0; border-left: 4px solid #f39c12; font-size: 11px;">
+      <h3 style="margin-top: 0; font-size: 14px;">Legal Certification</h3>
+      <p>
+        I, <strong>{{ section_65b.examiner }}</strong>, hereby certify that:
+      </p>
+      <ul style="margin: 8px 0 8px 20px; line-height: 1.6;">
+        <li>The above electronic records were produced by a computer system during the regular course of activities.
+        </li>
+        <li>The information contained in the electronic records is a reproduction of information fed into the computer
+          in the ordinary course of said activities.</li>
+        <li>The computer system was operating properly at the time the information was entered, or if not, any defect in
+          operation did not affect the electronic record or the accuracy of its contents.</li>
+        <li>The information contained in the electronic record reproduces or is derived from information fed into the
+          computer in the ordinary course of activities.</li>
+        <li>All evidence files have been cryptographically hashed using SHA-256 algorithm to ensure integrity and
+          prevent tampering.</li>
+        <li>The acquisition was performed using forensically sound methods via Android Debug Bridge (ADB) tools.</li>
+        <li>Chain of custody has been maintained throughout the acquisition and analysis process.</li>
+      </ul>
+      <p style="margin-top: 16px;">
+        <strong>Examiner Signature:</strong> __________________________________
+      </p>
+      <p>
+        <strong>Date:</strong> {{ section_65b.acquisition_date }}
+      </p>
+      <p>
+        <strong>Place:</strong> __________________________________
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Conclusion</h2>
+    <p>This report summarizes Android log acquisition and triage performed with the forensic tool. Findings should be
+      correlated with case context, additional artifacts, and validated against chain-of-custody records prior to
+      submission.</p>
+    <p>Examiner Signature: __________________________</p>
+    <p>Date: {{ generated_at.split(' ')[0] }}</p>
+  </div>
+</body>
+
+</html>
