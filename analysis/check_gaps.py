@@ -1,8 +1,15 @@
 import json
+import os,sys
 from datetime import datetime
 
+TIMELINE_FILE = "logs/unified_timeline.json"
+
+if not os.path.exists(TIMELINE_FILE):
+    print(f"ERROR: Missing {TIMELINE_FILE}")
+    print("Run scripts/process_all.py first.")
+    sys.exit(1)
 # Load timeline
-with open('logs/unified_timeline.json', 'r', encoding='utf-8') as f:
+with open(TIMELINE_FILE, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 # Filter logcat events

@@ -1,6 +1,14 @@
 import json
+import os, sys
 
-with open('logs/unified_timeline.json', 'r', encoding='utf-8') as f:
+TIMELINE_FILE = "logs/unified_timeline.json"
+
+if not os.path.exists(TIMELINE_FILE):
+    print(f"ERROR: Missing {TIMELINE_FILE}")
+    print("Run scripts/process_all.py first.")
+    sys.exit(1)
+
+with open(TIMELINE_FILE, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 # Analyze different event types
