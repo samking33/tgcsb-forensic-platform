@@ -379,8 +379,13 @@ def get_logcat_dump():
                 check=False,
                 timeout=15
             )
+            if result.returncode != 0:
+                print(f"   ⚠️ Failed to extract {buffer_name}: {result.stderr[:100]}")
+                continue
+
             with open(os.path.join("logs", outfile), "w", encoding="utf-8") as f:
                 f.write(result.stdout)
+            
                 
         print("✅ Logcat extracted successfully")
     except Exception as e:
