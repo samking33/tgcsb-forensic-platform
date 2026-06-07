@@ -6,6 +6,9 @@ from collections import Counter
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import sys
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGS_DIR = os.path.join(BASE_DIR, "logs")
+
 # Fix Windows encoding issues with emoji characters
 if sys.platform == 'win32':
     try:
@@ -37,7 +40,7 @@ def _load_lines(path):
 def _parse_system_properties():
     """Parses the system_properties.txt file into a dictionary."""
     props = {}
-    path = "logs/system_properties.txt"
+    path = os.path.join(LOGS_DIR, "system_properties.txt")
     if not os.path.exists(path):
         return props
     
@@ -56,7 +59,7 @@ def _parse_system_properties():
 
 def _get_kernel_version_safe():
     """Attempts to get kernel version from first 200 lines of logcat without loading full file."""
-    path = "logs/android_logcat.txt"
+    path = os.path.join(LOGS_DIR, "android_logcat.txt")
     if not os.path.exists(path):
         return "Unknown"
         
@@ -75,7 +78,7 @@ def _get_kernel_version_safe():
     return "Unknown"
 
 def _summarize_calls():
-    lines = _load_lines("logs/call_logs.txt")
+    lines = _load_lines(os.path.join(LOGS_DIR, "call_logs.txt"))
     # Only count lines that start with "Row:"
     call_lines = [line for line in lines if line.strip().startswith("Row:")]
     
@@ -123,7 +126,7 @@ def _summarize_calls():
     }
 
 def _summarize_sms():
-    lines = _load_lines("logs/sms_logs.txt")
+    lines = _load_lines(os.path.join(LOGS_DIR, "sms_logs.txt"))
     # Only count lines that start with "Row:"
     sms_lines = [line for line in lines if line.strip().startswith("Row:")]
     
@@ -172,7 +175,7 @@ def _summarize_sms():
     }
 
 def _summarize_logcat():
-    path = "logs/android_logcat.txt"
+    path = os.path.join(LOGS_DIR, "android_logcat.txt")
     if not os.path.exists(path):
         return {
             "total": 0,
@@ -224,13 +227,13 @@ def _calculate_file_hashes():
     Required for Section 65B Certificate (Indian Evidence Act, 1872)
     """
     evidence_files = [
-        "logs/android_logcat.txt",
-        "logs/call_logs.txt",
-        "logs/sms_logs.txt",
-        "logs/unified_timeline.json",
-        "logs/app_sessions.json",
-        "logs/location_logs.txt",
-        "logs/installed_apps.txt",
+        os.path.join(LOGS_DIR, "android_logcat.txt"),
+        os.path.join(LOGS_DIR, "call_logs.txt"),
+        os.path.join(LOGS_DIR, "sms_logs.txt"),
+        os.path.join(LOGS_DIR, "unified_timeline.json"),
+        os.path.join(LOGS_DIR, "app_sessions.json"),
+        os.path.join(LOGS_DIR, "location_logs.txt"),
+        os.path.join(LOGS_DIR, "installed_apps.txt"),
     ]
     
     hashes = []
@@ -277,7 +280,7 @@ def _collect_context():
     }
     
     # PRIORITY 1: Read from device_info.txt if available (most reliable)
-    device_info_path = "logs/device_info.txt"
+    device_info_path = os.path.join(LOGS_DIR, "device_info.txt")
     if os.path.exists(device_info_path):
         try:
             with open(device_info_path, 'r', encoding='utf-8', errors='replace') as f:
@@ -304,7 +307,7 @@ def _collect_context():
     
     # FALLBACK: Try extracting from logcat if device_info.txt failed
     if device_info["model"] == "Unknown" or device_info["android_version"] == "Unknown":
-        raw_log = "".join(_load_lines("logs/android_logcat.txt"))
+        raw_log = "".join(_load_lines(os.path.join(LOGS_DIR, "android_logcat.txt")))
         
         # Try multiple patterns for device model
         if device_info["model"] == "Unknown":
@@ -363,7 +366,7 @@ def _collect_context():
 
     # Load Section 65B data from JSON if available
     section_65b_data = None
-    section_65b_file = "logs/section_65b_data.json"
+    section_65b_file = os.path.join(LOGS_DIR, "section_65b_data.json")
     if os.path.exists(section_65b_file):
         try:
             import json
