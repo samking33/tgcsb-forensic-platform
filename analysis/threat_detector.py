@@ -193,7 +193,22 @@ def analyze_threats():
     # 4. Known Spyware Signatures (Simple check)
     # We can check against the loaded package lists from other tools if needed
     # For now, let's just check the ones we found in logs
-    pass 
+    # 4. Known Spyware Signatures
+    if os.path.exists(dump_pkg_file):
+        sideloads = parse_package_dump(dump_pkg_file)
+        for cand in sideloads:
+            pkg = cand['package'].lower()
+
+            for spyware_pkg in KNOWN_SPYWARE_PACKAGES:
+                if spyware_pkg.lower() in pkg:
+                    threats.append({
+                        "type": "KNOWN_SPYWARE",
+                        "severity": "CRITICAL",
+                        "package": cand['package'],
+                        "detail": "Package matches known spyware/stalkerware signature.",
+                        "evidence": f"Matched signature: {spyware_pkg}"
+                    })
+                    break
     
     # Score
     risk_score = 0
