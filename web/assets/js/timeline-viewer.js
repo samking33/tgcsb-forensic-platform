@@ -36,6 +36,10 @@ class TimelineViewer {
             }
 
             this.allEvents = data.events || [];
+            if (this.allEvents.length === 0) {
+                this.showError('No timeline data available. Run extraction first.');
+                return;
+            }
             // Sort by timestamp based on current sort direction
             this.sortEvents();
             this.filteredEvents = this.allEvents;
