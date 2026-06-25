@@ -275,7 +275,7 @@ class ThreatScanner:
             report.append("    • Run full antivirus scan")
             report.append("    • Consider factory reset if malware confirmed")
         
-       if medium:
+        if medium:
             report.append("  🟡 INVESTIGATE FURTHER:")
             report.append("    • Review suspicious applications")
             report.append("    • Check app permissions")

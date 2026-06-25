@@ -6,6 +6,9 @@ from collections import Counter
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import sys
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGS_DIR = os.path.join(BASE_DIR, "logs")
+
 # Fix Windows encoding issues with emoji characters
 if sys.platform == 'win32':
     try:
@@ -37,7 +40,7 @@ def _load_lines(path):
 def _parse_system_properties():
     """Parses the system_properties.txt file into a dictionary."""
     props = {}
-    path = "logs/system_properties.txt"
+    path = os.path.join(LOGS_DIR, "system_properties.txt")
     if not os.path.exists(path):
         return props
     
@@ -56,7 +59,7 @@ def _parse_system_properties():
 
 def _get_kernel_version_safe():
     """Attempts to get kernel version from first 200 lines of logcat without loading full file."""
-    path = "logs/android_logcat.txt"
+    path = os.path.join(LOGS_DIR, "android_logcat.txt")
     if not os.path.exists(path):
         return "Unknown"
         
@@ -75,7 +78,7 @@ def _get_kernel_version_safe():
     return "Unknown"
 
 def _summarize_calls():
-    lines = _load_lines("logs/call_logs.txt")
+    lines = _load_lines(os.path.join(LOGS_DIR, "call_logs.txt"))
     # Only count lines that start with "Row:"
     call_lines = [line for line in lines if line.strip().startswith("Row:")]
     
@@ -123,7 +126,7 @@ def _summarize_calls():
     }
 
 def _summarize_sms():
-    lines = _load_lines("logs/sms_logs.txt")
+    lines = _load_lines(os.path.join(LOGS_DIR, "sms_logs.txt"))
     # Only count lines that start with "Row:"
     sms_lines = [line for line in lines if line.strip().startswith("Row:")]
     
@@ -172,7 +175,7 @@ def _summarize_sms():
     }
 
 def _summarize_logcat():
-    path = "logs/android_logcat.txt"
+    path = os.path.join(LOGS_DIR, "android_logcat.txt")
     if not os.path.exists(path):
         return {
             "total": 0,
@@ -218,103 +221,19 @@ def _summarize_logcat():
             "recent_label": "Recent (No Today Logs)",
         }
 
-def _collect_context():
-    now = datetime.now()
-    props = _parse_system_properties()
-    
-    # 1. Get Model
-    # Try ro.product.model, ro.product.name
-    model = props.get("ro.product.model") or props.get("ro.product.name") or "Unknown"
-    
-    # 2. Get Android Version
-    # Try ro.build.version.release, ro.build.version.sdk
-    android_version = props.get("ro.build.version.release")
-    if not android_version:
-        sdk = props.get("ro.build.version.sdk")
-        if sdk and sdk.isdigit():
-             # Simple map for common versions
-            sdk_map = {'34':'14', '33':'13', '32':'12L', '31':'12', '30':'11', '29':'10', '28':'9'}
-            android_version = sdk_map.get(str(sdk), f"SDK {sdk}")
-        else:
-            android_version = "Unknown"
-
-    # 3. Get Kernel
-    # Rarely in props, so we check the top of logcat efficiently
-    kernel = _get_kernel_version_safe()
-
-    device_info = {
-        "model": model,
-        "android_version": android_version,
-        "kernel": kernel,
-    }
-    
-    # Load Section 65B data from JSON if available
-    section_65b_data = None
-    section_65b_file = "logs/section_65b_data.json"
-    if os.path.exists(section_65b_file):
-        try:
-            import json
-            with open(section_65b_file, 'r', encoding='utf-8') as f:
-                section_65b_data = json.load(f)
-        except Exception as e:
-            print(f"Warning: Could not load Section 65B data: {e}")
-    
-    # If Section 65B data not available, create basic version
-    if not section_65b_data:
-        section_65b_data = {
-            "acquisition_time": now.strftime("%Y-%m-%d %H:%M:%S"),
-            "acquisition_date": now.strftime("%d/%m/%Y"),
-            "acquisition_time_only": now.strftime("%H:%M:%S"),
-            "evidence_hashes": _calculate_file_hashes(),
-            "device_identifiers": device_info,
-            "examiner": "Digital Forensic Analyst",
-            "case_number": "123456",
-            "total_evidence_files": len(_calculate_file_hashes()),
-        }
-    
-    # Ensure evidence_hashes exists even if loaded from JSON
-    if "evidence_hashes" not in section_65b_data or not section_65b_data["evidence_hashes"]:
-        print("ℹ️  Calculating evidence hashes (missing in source data)...")
-        section_65b_data["evidence_hashes"] = _calculate_file_hashes()
-        section_65b_data["total_evidence_files"] = len(section_65b_data["evidence_hashes"])
-
-    return {
-        "generated_at": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "case_number": section_65b_data.get("case_number", "123456"),
-        "examiner": section_65b_data.get("examiner", "Digital Forensic Analyst"),
-        "device": device_info,
-        "calls": _summarize_calls(),
-        "sms": _summarize_sms(),
-        "logcat": _summarize_logcat(),
-        "chain_of_custody": [
-            "Evidence acquired from the Android device using approved ADB tools.",
-            "Logs extracted include Android Logcat, Call Logs, and SMS Logs.",
-            "Files verified with cryptographic hashes immediately after acquisition.",
-            "Analysis steps documented to preserve chain-of-custody integrity.",
-        ],
-        "methodology": [
-            "ADB-based acquisition of logcat, call, and SMS datasets.",
-            "Filtering by time range, keyword, severity, and subtype for targeted review.",
-            "Visualization of temporal activity and frequency distributions.",
-            "Threat triage and report packaging for court-ready evidence.",
-        ],
-        # TGCSB Section 65B Certificate (Indian Evidence Act, 1872)
-        "section_65b": section_65b_data
-    }
-
 def _calculate_file_hashes():
     """
     Calculate SHA-256 hashes for all evidence files.
     Required for Section 65B Certificate (Indian Evidence Act, 1872)
     """
     evidence_files = [
-        "logs/android_logcat.txt",
-        "logs/call_logs.txt",
-        "logs/sms_logs.txt",
-        "logs/unified_timeline.json",
-        "logs/app_sessions.json",
-        "logs/location_logs.txt",
-        "logs/installed_apps.txt",
+        os.path.join(LOGS_DIR, "android_logcat.txt"),
+        os.path.join(LOGS_DIR, "call_logs.txt"),
+        os.path.join(LOGS_DIR, "sms_logs.txt"),
+        os.path.join(LOGS_DIR, "unified_timeline.json"),
+        os.path.join(LOGS_DIR, "app_sessions.json"),
+        os.path.join(LOGS_DIR, "location_logs.txt"),
+        os.path.join(LOGS_DIR, "installed_apps.txt"),
     ]
     
     hashes = []
@@ -361,7 +280,7 @@ def _collect_context():
     }
     
     # PRIORITY 1: Read from device_info.txt if available (most reliable)
-    device_info_path = "logs/device_info.txt"
+    device_info_path = os.path.join(LOGS_DIR, "device_info.txt")
     if os.path.exists(device_info_path):
         try:
             with open(device_info_path, 'r', encoding='utf-8', errors='replace') as f:
@@ -388,7 +307,7 @@ def _collect_context():
     
     # FALLBACK: Try extracting from logcat if device_info.txt failed
     if device_info["model"] == "Unknown" or device_info["android_version"] == "Unknown":
-        raw_log = "".join(_load_lines("logs/android_logcat.txt"))
+        raw_log = "".join(_load_lines(os.path.join(LOGS_DIR, "android_logcat.txt")))
         
         # Try multiple patterns for device model
         if device_info["model"] == "Unknown":
@@ -447,7 +366,7 @@ def _collect_context():
 
     # Load Section 65B data from JSON if available
     section_65b_data = None
-    section_65b_file = "logs/section_65b_data.json"
+    section_65b_file = os.path.join(LOGS_DIR, "section_65b_data.json")
     if os.path.exists(section_65b_file):
         try:
             import json

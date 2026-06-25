@@ -77,9 +77,8 @@ function getEvents()
 
     if (!file_exists($jsonFile)) {
         echo json_encode([
-            'success' => true,
-            'events' => [],
-            'retention_notice' => 'No data found. Please click Extract.'
+            'success' => false,
+            'error' => 'Timeline data not found. Run extraction first.'
         ]);
         return;
     }

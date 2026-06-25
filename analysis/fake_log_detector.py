@@ -1,7 +1,17 @@
 import os
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import sys
+
+sys.path.append(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+)
+from parsers import parse_call_logs, parse_sms_logs
 import time
 
 LOGS_DIR = "logs"
@@ -37,6 +47,9 @@ def parse_logcat_timestamps(file_path):
                     dt_str = f"{current_year}-{match.group(1)}"
                     try:
                         dt = datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
+                        # Cross-year correction
+                        if dt > datetime.now() + timedelta(days=7):
+                            dt = dt.replace(year=dt.year - 1)
                         # Store tuple (timestamp, log_content)
                         activity_timestamps.append((dt.timestamp(), line.strip()))
                     except ValueError:
@@ -120,9 +133,24 @@ def main():
     
     print(f"   ✅ Loaded {len(radio_times)} system radio events")
 
-    # 2. Parse User Logs
-    calls = parse_call_logs()
-    sms = parse_sms_logs()
+    call_content = ""
+    sms_content = ""
+
+    call_file = os.path.join(LOGS_DIR, "call_logs.txt")
+    sms_file = os.path.join(LOGS_DIR, "sms_logs.txt")
+
+    if os.path.exists(call_file):
+        with open(call_file, "r", encoding="utf-8", errors="replace") as f:
+            call_content = f.read()
+
+    if os.path.exists(sms_file):
+        with open(sms_file, "r", encoding="utf-8", errors="replace") as f:
+            sms_content = f.read()
+
+    # 2. Parse user logs
+    calls = parse_call_logs(call_content)
+    sms = parse_sms_logs(sms_content)
+
     print(f"   ✅ Loaded {len(calls)} calls and {len(sms)} SMS messages")
 
     # 3. Verify
@@ -135,8 +163,8 @@ def main():
         "metadata": {
             "generated_at": datetime.now().isoformat(),
             "system_log_count": len(radio_times),
-            "system_log_start": datetime.fromtimestamp(radio_times[0]).isoformat() if radio_times else None,
-            "system_log_end": datetime.fromtimestamp(radio_times[-1]).isoformat() if radio_times else None
+            "system_log_start": datetime.fromtimestamp(radio_times[0][0]).isoformat() if radio_times else None,
+            "system_log_end": datetime.fromtimestamp(radio_times[-1][0]).isoformat() if radio_times else None
         },
         "verification": verification_results
     }

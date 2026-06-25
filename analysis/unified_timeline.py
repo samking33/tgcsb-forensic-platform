@@ -24,6 +24,8 @@ def parse_logcat_line(line, year):
         try:
             # Handle MM-DD format by appending inferred year
             ts = datetime.strptime(f"{year}-{ts_str}", "%Y-%m-%d %H:%M:%S.%f")
+            if ts > datetime.now() + timedelta(days=7):
+                ts = ts.replace(year=ts.year - 1)
             return {
                 "timestamp": ts.isoformat(),
                 "priority": priority,
@@ -40,6 +42,8 @@ def parse_logcat_line(line, year):
         ts_str, pid, tid, priority, tag, message = match.groups()
         try:
             ts = datetime.strptime(f"{year}-{ts_str}", "%Y-%m-%d %H:%M:%S.%f")
+            if ts > datetime.now() + timedelta(days=7):
+                ts = ts.replace(year=ts.year - 1)
             return {
                 "timestamp": ts.isoformat(),
                 "priority": priority,
